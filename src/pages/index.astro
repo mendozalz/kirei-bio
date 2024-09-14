@@ -1,0 +1,208 @@
+---
+import { getCollection } from "astro:content";
+import SocialIcon from "../components/SocialIcon.astro";
+import "../css/animation.css";
+
+const bio = await getCollection("bio");
+const links = await getCollection("links");
+const socials = await getCollection("socials");
+
+const profile = bio[0];
+
+const { Content } = await profile.render();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/gif+xml" href="/favicon.gif" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Kirei BIO</title>
+  </head>
+  <body class="bg-[#F7EEE7]">
+    <main class="flex flex-col items-center justify-center p-4 pt-10">
+      <img src={profile.data.avatar} alt="avatar" class="w-64 h-auto" />
+      <h1 class="text-[2.5rem] md:text-[5.5rem] text-[#2E2E51] font-semibold">
+        {profile.data.name}
+      </h1>
+      <section class="text-sm max-w-[400px] text-center text-[#2E2E51]">
+        <Content />
+      </section>
+      <!-- <nav>
+        <ul class="flex divide-x divide-white p-2">
+          <li class="text-lg">
+            <a
+              class="block px-2 text-[#2E2E51]"
+              href="https://kirei.live-website.com/"
+              target="_blank">Web</a
+            >
+          </li>
+          <li class="text-lg">
+            <a
+              class="block px-2 text-[#2E2E51]"
+              href="https://kirei.live-website.com/Blog"
+              target="_blank">Blog</a
+            >
+          </li>
+        </ul>
+      </nav> -->
+      <ul class="flex flex-col gap-y-4 pt-10 min-w-[400px] relative">
+        <div class="background_gradient_morado absolute"></div>
+        <div class="background_gradient_rosado absolute"></div>
+        {
+          links
+            .sort((a, b) => {
+              if (a.data.order < b.data.order) {
+                return -1;
+              }
+              if (a.data.order > b.data.order) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((link) => (
+              <div>
+                <li class="border-[#D8D4FA] border-2 rounded-full w-full text-center p-3 text-xl font-semibold flex justify-between relative group overflow-hidden">
+                  <img
+                    class="w-10 h-10 absolute top-3 left-2"
+                    src={link.data.img}
+                    alt="icono de la marca"
+                  />
+                  <div class="flex flex-grow justify-center items-center relative z-10  h-12 overflow-hidden rounded-full  bg-transparent px-6 font-medium transition-all duration-300 group-hover:-translate-x-2 group-hover:-translate-y-2 group-active:translate-x-0 group-active:translate-y-0">
+                    <a
+                      href={link.data.url}
+                      class="block text-[#2E2E51] text-4xl"
+                    >
+                      {link.data.title}
+                    </a>
+                  </div>
+                  <div class="absolute inset-0 z-0 h-full w-full rounded-full transition-all duration-300 group-hover:-translate-x-2 group-hover:-translate-y-2 group-hover:[box-shadow:5px_5px_#fc9ce2,10px_10px_#fcbdea,15px_15px_#fcfcfc] group-active:translate-x-0 group-active:translate-y-0 group-active:shadow-none" />
+                </li>
+              </div>
+            ))
+        }
+      </ul>
+      <ul class="flex gap-4 items-center justify-center flex-wrap pt-10 z-10">
+        {
+          socials
+            .sort((a, b) => {
+              if (a.data.order < b.data.order) {
+                return -1;
+              }
+              if (a.data.order > b.data.order) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((social) => (
+              <li class="border-[#D8D4FA] group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md border bg-transparent px-6 font-medium transition-all duration-100 [box-shadow:5px_5px_#2E2E51] hover:translate-x-[3px] hover:translate-y-[3px] hover:[box-shadow:0px_0px_#2E2E51]">
+                <a href={social.data.url} class="block p-4">
+                  <SocialIcon id={social.data.icon[0]} />
+                </a>
+              </li>
+            ))
+        }
+      </ul>
+    </main>
+  </body>
+</html>
+<style is:global>
+  h1 {
+    font-family: "BNHamburgHandRegular", Sans-serif;
+  }
+  li {
+    font-family: "1980v202003", Sans-serif;
+  }
+  main section p {
+    font-family: "BNHamburgHandRegular";
+  }
+  /* Registra tu font family personalizada y le indicamos al navegador dónde encontrarla. */
+  @font-face {
+    font-family: "1980v202003";
+    src: url("/fonts/1980v202003.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "MTDUTSugarCane";
+    src: url("/fonts/MTDUTSugarCane.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "BNHamburgHandMedium";
+    src: url("/fonts/BNHamburgHandMedium.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "BNHamburgHandRegular";
+    src: url("/fonts/BNHamburgHandRegular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+<script>
+  setTimeout(() => {
+    let favicon_video_image_counter = 0;
+    let favicon_video_icon_tag = document.querySelector(
+      "link[rel='icon']"
+    ) as HTMLLinkElement | null;
+    let favicon_video_images: string[] = [
+      "https://favicongenerator.s3.amazonaws.com/d368f54fa9107.png",
+      "https://favicongenerator.s3.amazonaws.com/565bd9c267d4a.png",
+      "https://favicongenerator.s3.amazonaws.com/1317772c48325.png",
+      "https://favicongenerator.s3.amazonaws.com/3aa202ffdd1d6.png",
+    ];
+
+    async function favicon_video_to_data_url(url: string): Promise<string> {
+      return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          let reader = new FileReader();
+          reader.onloadend = function () {
+            if (typeof reader.result === "string") {
+              resolve(reader.result);
+            } else {
+              reject(new Error("Failed to convert to data URL"));
+            }
+          };
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.onerror = () => reject(new Error("XHR request failed"));
+        xhr.open("GET", url);
+        xhr.responseType = "blob";
+        xhr.send();
+      });
+    }
+
+    let favicon_video_loaded_images: string[] = [];
+
+    Promise.all(
+      favicon_video_images.map((url) => favicon_video_to_data_url(url))
+    )
+      .then((dataUrls) => {
+        favicon_video_loaded_images = dataUrls;
+      })
+      .catch((error) => console.error("Error loading favicon images:", error));
+
+    setInterval(function () {
+      if (
+        favicon_video_icon_tag &&
+        favicon_video_loaded_images[favicon_video_image_counter]
+      ) {
+        favicon_video_icon_tag.href = favicon_video_loaded_images[
+          favicon_video_image_counter
+        ].replace("application/octet-stream", "image/png");
+      }
+      if (favicon_video_image_counter == favicon_video_loaded_images.length - 1)
+        favicon_video_image_counter = 0;
+      else favicon_video_image_counter++;
+    }, 100);
+  }, 2000);
+</script>

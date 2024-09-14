@@ -1,0 +1,83 @@
+.background_gradient_morado {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at left 20%,
+    #d8d4fa,
+    #b0a9ef,
+    #8275f4,
+    transparent,
+    transparent
+  );
+  filter: blur(20px);
+  animation-name: styles_gradient_morado;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: 1.7s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes styles_gradient_morado {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(-150deg) scale(0.8);
+    background: radial-gradient(
+      circle at left 20%,
+      #d8d4fa,
+      #b0a9ef,
+      #8275f4,
+      transparent,
+      transparent
+    );
+  }
+}
+
+/*************/
+
+.background_gradient_rosado {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at right 20%,
+    #febdee,
+    #f69adf,
+    #f882da,
+    transparent,
+    transparent
+  );
+  filter: blur(20px);
+  animation-name: styles_gradient_rosado;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-delay: 1.7s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes styles_gradient_rosado {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(-150deg) scale(0.8);
+    background: radial-gradient(
+      circle at right 20%,
+      #febdee,
+      #f69adf,
+      #f882da,
+      transparent,
+      transparent
+    );
+  }
+}
