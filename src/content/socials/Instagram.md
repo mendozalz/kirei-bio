@@ -1,6 +1,6 @@
 ---
 title: Instagram
-url: "#"
+url: "https://www.instagram.com/kirei_handmade"
 order: 2
 icon:
   - instagram
